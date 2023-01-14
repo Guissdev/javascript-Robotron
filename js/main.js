@@ -34,25 +34,36 @@ const pecas = {
     }
 }
 
+controle.forEach((elemento) => {
+    elemento.addEventListener('click', (event) => {
+        manipulaDados(event.target.dataset.controle, event.target.parentNode);
+        atualizaEstatisticas(event.target.dataset.controle, event.target.dataset.peca);
 
-
-controle.forEach( (elemento) => {
-    elemento.addEventListener("click", (evento) => {
-        manipulaDados(evento.target.dataset.controle, evento.target.parentNode)
-        atualizaEstatisticas(evento.target.dataset.peca)
     })
 })
 
-function manipulaDados (operacao, controle) {
-    const peca = controle.querySelector("[data-contador]")
+function manipulaDados(operacao, controle) {
+    const peca = controle.querySelector("[data-contador]");
 
-    if (operacao === "-") {
-        peca.value = parseInt(peca.value) - 1
+    if (operacao === '-') {
+        peca.value = parseInt(peca.value) - 1;
+
     } else {
-        peca.value = parseInt(peca.value) + 1
+        peca.value = parseInt(peca.value) + 1;
     }
 }
 
-function atualizaEstatisticas (peca) {
-    console.log(peca)
+function atualizaEstatisticas(operacao, peca) {
+
+    if (operacao === '-') {
+        estatisticas.forEach((elemento) => {
+            elemento.textContent = parseInt(elemento.textContent) - pecas[peca][elemento.dataset.estatistica]
+        })
+
+    } else {
+        estatisticas.forEach((elemento) => {
+            elemento.textContent = parseInt(elemento.textContent) + pecas[peca][elemento.dataset.estatistica]
+        })
+    }
+
 }
